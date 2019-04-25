@@ -96,13 +96,16 @@
 
 
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="寻门而入，破门而出。">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="https://Syq777.github.io/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="寻门而入，破门而出。">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="寻门而入，破门而出。">
 
 
 
@@ -320,12 +323,341 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Syq777.github.io/2019/04/25/Python词云图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="syq">
+      <meta itemprop="description" content="寻门而入，破门而出。">
+      <meta itemprop="image" content="/images/image.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/25/Python词云图/" class="post-title-link" itemprop="url">Python自定义词云图</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-25 22:35:36" itemprop="dateCreated datePublished" datetime="2019-04-25T22:35:36+08:00">2019-04-25</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python数据分析/" itemprop="url" rel="index"><span itemprop="name">Python数据分析</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="04-13"><a href="#04-13" class="headerlink" title="04.13"></a>04.13</h1><h3 id="Python自定义词云图"><a href="#Python自定义词云图" class="headerlink" title="Python自定义词云图"></a>Python自定义词云图</h3><h6 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h6><p>1、安装python环境</p>
+<p>2、安装pycharm或者Anaconda Navigator</p>
+<p>3、控制台安装wordcloud的库 </p>
+<p>​   pip  install jieba </p>
+<p>​   pip install wordcloud</p>
+<p>​   pip  matplotlib</p>
+<h6 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h6><ul>
+<li>注意文件的路径</li>
+<li>自定义图片的选择很重要</li>
+<li>py文件名字不要写成wordcloud</li>
+</ul>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><h6 id><a href="#" class="headerlink" title=" "></a> </h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import jieba</span><br><span class="line">from PIL import Image</span><br><span class="line">from  wordcloud import WordCloud , ImageColorGenerator</span><br><span class="line">from scipy.misc import imread</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">#打开文件</span><br><span class="line">text = open(r&apos;.\test123.txt&apos;,&apos;r&apos;).read()</span><br><span class="line"># print(text)</span><br><span class="line">#分词</span><br><span class="line">cut_text = jieba.cut(text)</span><br><span class="line">#结果返回给result</span><br><span class="line">result = &apos; &apos;.join(cut_text)</span><br><span class="line">#引入图片</span><br><span class="line">image = Image.open(&apos;.\drug.jpg&apos;)</span><br><span class="line">graph = np.array(image)</span><br><span class="line"></span><br><span class="line"># print(result)</span><br><span class="line">wc = WordCloud(</span><br><span class="line">    font_path=r&apos;.\XHei.ttf&apos;,</span><br><span class="line">    background_color=&apos;white&apos;,</span><br><span class="line">    # width=500,</span><br><span class="line">    # height=300,</span><br><span class="line">    max_font_size=1000,</span><br><span class="line">    # min_font_size=10,</span><br><span class="line">    mask=graph</span><br><span class="line">)</span><br><span class="line">wc.generate(result)</span><br><span class="line">image_color = ImageColorGenerator(graph)</span><br><span class="line">wc.recolor(color_func=image_color)</span><br><span class="line">wc.to_file(r&apos;.\cloud234.png&apos;)</span><br><span class="line"></span><br><span class="line"># plt.figure(&apos;test1&apos;)</span><br><span class="line">plt.imshow(wc)</span><br><span class="line">plt.imshow(wc.recolor(color_func=image_color))</span><br><span class="line">plt.axis(&quot;off&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h4 id="增强版"><a href="#增强版" class="headerlink" title="增强版"></a>增强版</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import jieba</span><br><span class="line">from PIL import Image</span><br><span class="line">from  wordcloud import WordCloud , ImageColorGenerator</span><br><span class="line">from scipy.misc import imread</span><br><span class="line">import numpy as np</span><br><span class="line">text = open(r&apos;.\test123.txt&apos;,&apos;r&apos;).read()</span><br><span class="line"># print(text)PNG</span><br><span class="line">cut_text = jieba.cut(text)</span><br><span class="line">result = &apos; &apos;.join(cut_text)</span><br><span class="line">image = Image.open(&apos;.\img.png&apos;)</span><br><span class="line">graph = np.array(image)</span><br><span class="line"></span><br><span class="line"># print(result)</span><br><span class="line">wc = WordCloud(</span><br><span class="line"></span><br><span class="line">    font_path=r&apos;.\XHei.ttf&apos;,</span><br><span class="line">    background_color=&apos;white&apos;,</span><br><span class="line">    # width=500,</span><br><span class="line">    # height=300,</span><br><span class="line">    max_font_size=1000,</span><br><span class="line">    collocations=False,</span><br><span class="line">    # min_font_size=10,</span><br><span class="line">    mask=graph</span><br><span class="line">)</span><br><span class="line">wc.generate(result)</span><br><span class="line">image_color = ImageColorGenerator(graph)</span><br><span class="line">wc.recolor(color_func=image_color)</span><br><span class="line">wc.to_file(r&apos;.\xxx.png&apos;)</span><br><span class="line"></span><br><span class="line"># plt.figure(&apos;test1&apos;)</span><br><span class="line">plt.imshow(wc)</span><br><span class="line">plt.imshow(wc.recolor(color_func=image_color))</span><br><span class="line">plt.axis(&quot;off&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://Syq777.github.io/2019/04/25/template/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="syq">
+      <meta itemprop="description" content="寻门而入，破门而出。">
+      <meta itemprop="image" content="/images/image.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/25/template/" class="post-title-link" itemprop="url">template</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-25 21:40:06 / 修改时间：21:40:35" itemprop="dateCreated datePublished" datetime="2019-04-25T21:40:06+08:00">2019-04-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/template/" itemprop="url" rel="index"><span itemprop="name">template</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://Syq777.github.io/2019/04/22/微信小程序+java后台实现openid获取/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Syq777">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="syq">
+      <meta itemprop="description" content="寻门而入，破门而出。">
+      <meta itemprop="image" content="/images/image.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -490,9 +822,9 @@
     <link itemprop="mainEntityOfPage" href="https://Syq777.github.io/2019/04/20/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Syq777">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="syq">
+      <meta itemprop="description" content="寻门而入，破门而出。">
+      <meta itemprop="image" content="/images/image.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -549,7 +881,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-25 21:24:45" itemprop="dateModified" datetime="2019-04-25T21:24:45+08:00">2019-04-25</time>
+                <time title="修改时间：2019-04-25 21:31:37" itemprop="dateModified" datetime="2019-04-25T21:31:37+08:00">2019-04-25</time>
               
             
           </span>
@@ -684,8 +1016,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">Syq777</p>
-              <div class="site-description motion-element" itemprop="description"></div>
+              <img class="site-author-image" itemprop="image" src="/images/image.jpg" alt="syq">
+            
+              <p class="site-author-name" itemprop="name">syq</p>
+              <div class="site-description motion-element" itemprop="description">寻门而入，破门而出。</div>
           </div>
 
           
@@ -695,7 +1029,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -714,12 +1048,39 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
               
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
               
             </nav>
           
@@ -728,6 +1089,32 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Syq777" title="GitHub &rarr; https://github.com/Syq777" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:sunwukong0616@gmail.com" title="E-Mail &rarr; mailto:sunwukong0616@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
           
 
           
@@ -762,7 +1149,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Syq777</span>
+  <span class="author" itemprop="copyrightHolder">syq</span>
 
   
 
