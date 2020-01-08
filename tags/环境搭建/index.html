@@ -7,13 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 词云图 - Hexo</title>
+<title>标签: 环境搭建 - Hexo</title>
 
 
     <meta name="description" content="EAT_SLEEP_CODE">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://Syq777.github.io/tags/词云图/index.html">
+<meta property="og:url" content="https://Syq777.github.io/tags/环境搭建/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="EAT_SLEEP_CODE">
 <meta property="og:locale" content="zh-CN">
@@ -133,7 +133,7 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
             <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">词云图</a></li>
+            <li class="is-active"><a href="#" aria-current="page">环境搭建</a></li>
         </ul>
         </nav>
     </div>
@@ -146,17 +146,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-04-25T14:35:36.181Z">2019-04-25</time>
+                <time class="level-item has-text-grey" datetime="2019-04-28T15:46:35.032Z">2019-04-28</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Python数据分析/">Python数据分析</a>
+                <a class="has-link-grey -link" href="/categories/php/">php</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 324 个字)
+                    4 分钟 读完 (大约 575 个字)
                 </span>
                 
                 
@@ -165,23 +165,30 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/04/25/Python词云图/">Python自定义词云图</a>
+                <a class="has-link-black-ter" href="/2019/04/28/ThinkPHP5环境搭建/">ThinkPHP5环境搭建</a>
             
         </h1>
         <div class="content">
-            <h1 id="04-13"><a href="#04-13" class="headerlink" title="04.13"></a>04.13</h1><h3 id="Python自定义词云图"><a href="#Python自定义词云图" class="headerlink" title="Python自定义词云图"></a>Python自定义词云图</h3><h6 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h6><p>1、安装python环境</p>
-<p>2、安装pycharm或者Anaconda Navigator</p>
-<p>3、控制台安装wordcloud的库 </p>
-<p>​   pip  install jieba </p>
-<p>​   pip install wordcloud</p>
-<p>​   pip  matplotlib</p>
-<h6 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h6><ul>
-<li>注意文件的路径</li>
-<li>自定义图片的选择很重要</li>
-<li>py文件名字不要写成wordcloud</li>
-</ul>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><h6 id><a href="#" class="headerlink" title=" "></a> </h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import jieba</span><br><span class="line">from PIL import Image</span><br><span class="line">from  wordcloud import WordCloud , ImageColorGenerator</span><br><span class="line">from scipy.misc import imread</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">#打开文件</span><br><span class="line">text = open(r&apos;.\test123.txt&apos;,&apos;r&apos;).read()</span><br><span class="line"># print(text)</span><br><span class="line">#分词</span><br><span class="line">cut_text = jieba.cut(text)</span><br><span class="line">#结果返回给result</span><br><span class="line">result = &apos; &apos;.join(cut_text)</span><br><span class="line">#引入图片</span><br><span class="line">image = Image.open(&apos;.\drug.jpg&apos;)</span><br><span class="line">graph = np.array(image)</span><br><span class="line"></span><br><span class="line"># print(result)</span><br><span class="line">wc = WordCloud(</span><br><span class="line">    font_path=r&apos;.\XHei.ttf&apos;,</span><br><span class="line">    background_color=&apos;white&apos;,</span><br><span class="line">    # width=500,</span><br><span class="line">    # height=300,</span><br><span class="line">    max_font_size=1000,</span><br><span class="line">    # min_font_size=10,</span><br><span class="line">    mask=graph</span><br><span class="line">)</span><br><span class="line">wc.generate(result)</span><br><span class="line">image_color = ImageColorGenerator(graph)</span><br><span class="line">wc.recolor(color_func=image_color)</span><br><span class="line">wc.to_file(r&apos;.\cloud234.png&apos;)</span><br><span class="line"></span><br><span class="line"># plt.figure(&apos;test1&apos;)</span><br><span class="line">plt.imshow(wc)</span><br><span class="line">plt.imshow(wc.recolor(color_func=image_color))</span><br><span class="line">plt.axis(&quot;off&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<h4 id="增强版"><a href="#增强版" class="headerlink" title="增强版"></a>增强版</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import jieba</span><br><span class="line">from PIL import Image</span><br><span class="line">from  wordcloud import WordCloud , ImageColorGenerator</span><br><span class="line">from scipy.misc import imread</span><br><span class="line">import numpy as np</span><br><span class="line">text = open(r&apos;.\test123.txt&apos;,&apos;r&apos;).read()</span><br><span class="line"># print(text)PNG</span><br><span class="line">cut_text = jieba.cut(text)</span><br><span class="line">result = &apos; &apos;.join(cut_text)</span><br><span class="line">image = Image.open(&apos;.\img.png&apos;)</span><br><span class="line">graph = np.array(image)</span><br><span class="line"></span><br><span class="line"># print(result)</span><br><span class="line">wc = WordCloud(</span><br><span class="line"></span><br><span class="line">    font_path=r&apos;.\XHei.ttf&apos;,</span><br><span class="line">    background_color=&apos;white&apos;,</span><br><span class="line">    # width=500,</span><br><span class="line">    # height=300,</span><br><span class="line">    max_font_size=1000,</span><br><span class="line">    collocations=False,</span><br><span class="line">    # min_font_size=10,</span><br><span class="line">    mask=graph</span><br><span class="line">)</span><br><span class="line">wc.generate(result)</span><br><span class="line">image_color = ImageColorGenerator(graph)</span><br><span class="line">wc.recolor(color_func=image_color)</span><br><span class="line">wc.to_file(r&apos;.\xxx.png&apos;)</span><br><span class="line"></span><br><span class="line"># plt.figure(&apos;test1&apos;)</span><br><span class="line">plt.imshow(wc)</span><br><span class="line">plt.imshow(wc.recolor(color_func=image_color))</span><br><span class="line">plt.axis(&quot;off&quot;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+            <h6 id="1、phpstudy-tp5框架的配置"><a href="#1、phpstudy-tp5框架的配置" class="headerlink" title="1、phpstudy  tp5框架的配置"></a>1、phpstudy  tp5框架的配置</h6><p>ide： phpstrom<br>首先把下载的tp5框架解压到www文件夹下面（rename）<br>phpstudy的配置端口常规设置更改host，目录使得localhost可以直接访问<br>出现的问题记录在youdao里面<br>tp5的开发模式</p>
+<p>2、</p>
+<h6 id="问localhost-index-index-index出现No-input-file-specified-问题在哪里？"><a href="#问localhost-index-index-index出现No-input-file-specified-问题在哪里？" class="headerlink" title="问localhost/index/index/index出现No input file specified.问题在哪里？"></a>问localhost/index/index/index出现No input file specified.问题在哪里？</h6><p><strong>访问localhost/index/index/index出现No input file specified.问题在哪里？</strong></p>
+<p>访问localhost/index/index/index出现No input file specified.问题在哪里？</p>
+<p>2018-08-03<a href="https://www.imooc.com/video/14751" target="_blank" rel="noopener"> 源自：快速入门ThinkPHP 5.0–基础篇 2-4</a>250 浏览2 回答</p>
+<p>首先，看一下你的app/index/controller/Index.php是否存在，里面有没有写好index方法。</p>
+<p>然后，看一下你的网站根目录配置好了没有。我的配置的是到public中的。</p>
+<p>然后就是你的httpd-conf文件里面的配置中的LoadModule rewrite_module modules/mod_rewrite.so模块有没有开启，还有AllowOverride的后面是不是All。</p>
+<p>还有一个地方就是public/.htaccess中的一行改成这样的，index.php/$1中间加个’?’</p>
+<p>RewriteRule ^(.*)$ index.php?/$1 [QSA,PT,L]</p>
+<p><a href="https://www.imooc.com/u/6807213/bbs" target="_blank" rel="noopener">钟广文</a></p>
+<p>那个问号的问题</p>
+<h6 id="3、php环境配置"><a href="#3、php环境配置" class="headerlink" title="3、php环境配置"></a>3、php环境配置</h6><p>1、 安装目录不要有 中文 空格<br> 2、  还有最好不要放在c盘（避免重装系统时需要重新配置）</p>
+<p> 问题：<br> mysql端口冲突3306 3307？</p>
+<p> phpstudy<br>  找到文件更改 phomyadmin用户名密码<br>   增加代码 具体忘了</p>
+<p>mysql 端口问题：（本地有两个mysql  自己安装的 还有安装phpstudy自带的mysql）<br>navcat打不开提示缺文件 （百度网盘我的资源目录下有缺少资源）<br>端口冲突：修改端口<br>解决办法:<br>在mysql 安装目录下修改my.ini()<br>找到 program data 文件夹（该文件夹默认为隐藏文件夹） (win10找不到文件)</p>
+<p>服务里开启mysql服务<br> include require 区别 运行时的效果 对于错误的处理不同 require对于文件不存在停止执行<br> include 继续执行</p>
+<p> require检查比较严格  用include遇到错误继续执行下面的代码。</p>
+<p> 自己开发时用require，方便检查错误。 上线用include 不能把错误暴露给</p>
+<p> 用户</p>
 
         </div>
         
