@@ -1,0 +1,19 @@
+{
+  "name": "yantu-weekly",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "predev": "npm run build",
+    "dev": "node scripts/serve.mjs",
+    "import:notion": "node scripts/import-notion.mjs",
+    "test": "npm run build && node --test tests/static-site.test.mjs"
+  },
+  "dependencies": {
+    "marked": "^18.0.7"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
