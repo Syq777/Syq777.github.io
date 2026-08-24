@@ -84,16 +84,14 @@ function siteHeader({ article = false } = {}) {
   return `<a class="skip-link" href="#content">跳到正文</a>
 <header class="site-header${article ? " article-header" : ""}">
   <a class="brand" href="/" aria-label="沿途周刊首页">
-    <span class="brand-mark" aria-hidden="true">沿</span>
-    <span class="brand-copy">
-      <strong>沿途周刊</strong>
-      <small>WEEKLY NOTES</small>
-    </span>
+    <strong>沿途</strong>
+    <span aria-hidden="true">/</span>
+    <small>周刊</small>
   </a>
   ${
     article
-      ? '<a class="header-link" href="/">← 全部周报</a>'
-      : '<p class="update-note">每周更新一次</p>'
+      ? '<a class="header-link" href="/"><span aria-hidden="true">←</span> 返回全部周报</a>'
+      : '<a class="header-link" href="/feed.xml">订阅更新 <span aria-hidden="true">↗</span></a>'
   }
 </header>`;
 }
@@ -131,22 +129,42 @@ mkdirSync(outputDirectory, { recursive: true });
 cpSync(publicDirectory, outputDirectory, { recursive: true });
 writeFileSync(path.join(outputDirectory, ".nojekyll"), "");
 
-const cards = weeklies
+const latestWeekly = weeklies[0];
+const archiveWeeklies = weeklies.slice(1);
+
+const latestCard = `<article class="latest-card">
+  <a class="latest-image" href="/weekly/${latestWeekly.slug}/">
+    <img src="${escapeHtml(latestWeekly.cover)}" alt="${escapeHtml(
+      latestWeekly.coverAlt,
+    )}" width="1800" height="1125" fetchpriority="high">
+  </a>
+  <div class="latest-copy">
+    <div class="issue-meta">
+      <span>最新一期 · ${escapeHtml(latestWeekly.issueLabel)}</span>
+      <time datetime="${latestWeekly.date}">${formatDate(latestWeekly.date)}</time>
+    </div>
+    <h2><a href="/weekly/${latestWeekly.slug}/">${escapeHtml(latestWeekly.title)}</a></h2>
+    <p>${escapeHtml(latestWeekly.summary)}</p>
+    <a class="read-link" href="/weekly/${latestWeekly.slug}/">读这一期 <span aria-hidden="true">→</span></a>
+  </div>
+</article>`;
+
+const archiveCards = archiveWeeklies
   .map(
-    (weekly, index) => `<article class="weekly-card">
-  <a class="card-image" href="/weekly/${weekly.slug}/" aria-label="阅读${escapeHtml(
-    weekly.issueLabel,
-  )}《${escapeHtml(weekly.title)}》">
+    (weekly) => `<article class="archive-card">
+  <a class="archive-image" href="/weekly/${weekly.slug}/">
     <img src="${escapeHtml(weekly.cover)}" alt="${escapeHtml(
       weekly.coverAlt,
-    )}" width="1800" height="1125" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}>
+    )}" width="1800" height="1125" loading="lazy">
   </a>
-  <div class="card-meta">
-    <span>${escapeHtml(weekly.issueLabel)}</span>
-    <time datetime="${weekly.date}">${formatDate(weekly.date)}</time>
+  <div class="archive-copy">
+    <div class="issue-meta">
+      <span>${escapeHtml(weekly.issueLabel)}</span>
+      <time datetime="${weekly.date}">${formatDate(weekly.date)}</time>
+    </div>
+    <h3><a href="/weekly/${weekly.slug}/">${escapeHtml(weekly.title)}</a></h3>
+    <p>${escapeHtml(weekly.summary)}</p>
   </div>
-  <h2><a href="/weekly/${weekly.slug}/">${escapeHtml(weekly.title)}</a></h2>
-  <p>${escapeHtml(weekly.summary)}</p>
 </article>`,
   )
   .join("\n");
@@ -158,20 +176,28 @@ const home = `${pageHead({
 })}
 <body>
 ${siteHeader()}
-<main id="content">
+<main id="content" class="home">
   <section class="intro" aria-labelledby="intro-title">
-    <p class="eyebrow">A WEEKLY LETTER TO MYSELF</p>
-    <h1 id="intro-title">每周，留下一点什么。</h1>
-    <p>记录这一周看到的、想到的，以及不想忘记的事。</p>
+    <p class="eyebrow">WEEKLY NOTES · 2026</p>
+    <h1 id="intro-title">写下这一周，<br>也留住这一周。</h1>
+    <p>关于生活、工作和一些还没有答案的思考。</p>
   </section>
-  <section class="weekly-grid" aria-label="周报列表">
-    ${cards}
+  <section class="latest" aria-labelledby="latest-title">
+    <h2 class="section-title" id="latest-title">本周</h2>
+    ${latestCard}
   </section>
+  ${archiveWeeklies.length ? `<section class="archive" aria-labelledby="archive-title">
+    <div class="section-heading">
+      <h2 class="section-title" id="archive-title">往期</h2>
+      <p>共 ${weeklies.length} 期</p>
+    </div>
+    <div class="archive-list">${archiveCards}</div>
+  </section>` : ""}
 </main>
 <footer class="site-footer">
   <span>© 2026 沿途周刊</span>
-  <p>保持记录，保持感受。</p>
-  <a href="#content">回到顶部 ↑</a>
+  <p>每周，给生活留一个坐标。</p>
+  <a href="#content">回到顶部 <span aria-hidden="true">↑</span></a>
 </footer>
 </body>
 </html>`;
@@ -204,7 +230,7 @@ ${siteHeader({ article: true })}
       <div class="article-meta">
         <span>${escapeHtml(weekly.issueLabel)}</span>
         <time datetime="${weekly.date}">${formatDate(weekly.date)}</time>
-        <span>约 ${weekly.readingMinutes} 分钟</span>
+        <span>阅读约 ${weekly.readingMinutes} 分钟</span>
       </div>
       <h1>${escapeHtml(weekly.title)}</h1>
       <p>${escapeHtml(weekly.summary)}</p>
@@ -216,6 +242,10 @@ ${siteHeader({ article: true })}
     <nav class="article-navigation" aria-label="周报翻页">${navigation}</nav>
   </article>
 </main>
+<footer class="article-footer">
+  <a href="/">沿途周刊</a>
+  <p>每周，给生活留一个坐标。</p>
+</footer>
 </body>
 </html>`;
 
