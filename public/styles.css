@@ -276,6 +276,11 @@ img { display: block; max-width: 100%; }
   outline: 1px solid rgb(0 0 0 / 10%);
   outline-offset: -1px;
 }
+.article-cover--portrait {
+  width: min(100%, 480px);
+  margin-inline: auto;
+  display: block;
+}
 .markdown {
   font-family: var(--serif);
   font-size: 17px;
@@ -321,6 +326,19 @@ img { display: block; max-width: 100%; }
   margin: 42px 0;
   outline: 1px solid rgb(0 0 0 / 10%);
   outline-offset: -1px;
+}
+.markdown .portrait-photo {
+  width: min(100%, 480px);
+  margin: 46px auto 54px;
+}
+.markdown .portrait-photo img { margin: 0; }
+.markdown .portrait-photo figcaption {
+  margin-block-start: 12px;
+  color: var(--quiet);
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
 }
 .article-navigation {
   margin-block-start: 92px;
@@ -431,4 +449,5 @@ img { display: block; max-width: 100%; }
   body { background: #fff; }
   .article { margin-block-start: 0; }
   .article-cover { width: 100%; }
+  .article-cover--portrait { width: min(100%, 480px); }
 }

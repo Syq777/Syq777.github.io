@@ -116,6 +116,9 @@ const weeklies = readdirSync(contentDirectory)
       summary: data.summary,
       cover: data.cover || "/notebook.jpg",
       coverAlt: data.coverAlt || data.title,
+      coverWidth: Number(data.coverWidth) || 1800,
+      coverHeight: Number(data.coverHeight) || 1125,
+      coverPosition: data.coverPosition || "center",
       readingMinutes: Math.max(1, Math.ceil(body.replace(/\s/g, "").length / 500)),
       html: marked.parse(body, { gfm: true }),
     };
@@ -136,7 +139,9 @@ const latestCard = `<article class="latest-card">
   <a class="latest-image" href="/weekly/${latestWeekly.slug}/">
     <img src="${escapeHtml(latestWeekly.cover)}" alt="${escapeHtml(
       latestWeekly.coverAlt,
-    )}" width="1800" height="1125" fetchpriority="high">
+    )}" width="${latestWeekly.coverWidth}" height="${latestWeekly.coverHeight}" style="object-position: ${escapeHtml(
+      latestWeekly.coverPosition,
+    )}" fetchpriority="high">
   </a>
   <div class="latest-copy">
     <div class="issue-meta">
@@ -155,7 +160,9 @@ const archiveCards = archiveWeeklies
   <a class="archive-image" href="/weekly/${weekly.slug}/">
     <img src="${escapeHtml(weekly.cover)}" alt="${escapeHtml(
       weekly.coverAlt,
-    )}" width="1800" height="1125" loading="lazy">
+    )}" width="${weekly.coverWidth}" height="${weekly.coverHeight}" style="object-position: ${escapeHtml(
+      weekly.coverPosition,
+    )}" loading="lazy">
   </a>
   <div class="archive-copy">
     <div class="issue-meta">
@@ -235,9 +242,9 @@ ${siteHeader({ article: true })}
       <h1>${escapeHtml(weekly.title)}</h1>
       <p>${escapeHtml(weekly.summary)}</p>
     </header>
-    <img class="article-cover" src="${escapeHtml(weekly.cover)}" alt="${escapeHtml(
+    <img class="article-cover${weekly.coverHeight > weekly.coverWidth ? " article-cover--portrait" : ""}" src="${escapeHtml(weekly.cover)}" alt="${escapeHtml(
       weekly.coverAlt,
-    )}" width="1800" height="1125" fetchpriority="high">
+    )}" width="${weekly.coverWidth}" height="${weekly.coverHeight}" fetchpriority="high">
     <div class="markdown">${weekly.html}</div>
     <nav class="article-navigation" aria-label="周报翻页">${navigation}</nav>
   </article>
