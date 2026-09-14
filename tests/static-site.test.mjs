@@ -11,8 +11,8 @@ test("首页列出全部周报并优先显示最新一期", async () => {
   assert.match(html, /雨落·立秋/);
   assert.match(html, /昼暮·四季未满/);
   assert.match(html, /北京的海/);
-  assert.match(html, /注意力的分配/);
-  assert.ok(html.indexOf("注意力的分配") < html.indexOf("北京的海"));
+  assert.match(html, /九月过半/);
+  assert.ok(html.indexOf("九月过半") < html.indexOf("北京的海"));
   assert.ok(html.indexOf("北京的海") < html.indexOf("昼暮·四季未满"));
   assert.ok(html.indexOf("昼暮·四季未满") < html.indexOf("雨落·立秋"));
   assert.ok(html.indexOf("雨落·立秋") < html.indexOf("雨后·颐和园"));
